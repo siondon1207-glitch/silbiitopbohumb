@@ -1,23 +1,725 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
-    <main>
-      <h1>Home page</h1>
+
+
+    <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "교통사고 발생 시 내가 가입한 실비보험으로 치료비를 중복 청구할 수 있나요?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "가입하신 실손의료보험의 가입 시기에 따라 다릅니다. 2009년 8월 이전에 가입한 1세대 실비보험 중 일반상해의료비 특약이 있다면, 자동차보험으로 처리받은 치료비 총액의 50%를 중복으로 돌려받을 수 있습니다. 반면 그 이후에 가입한 2세대부터 4세대 실비보험은 본인 과실로 인해 발생한 본인부담 치료비에 한하여 40%에서 80% 수준까지 비례 보상받을 수 있습니다."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "2026년부터 도입되는 교통사고 경상환자 치료 및 합의금 개정안의 핵심은 무엇인가요?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "2026년 4월부터 적용되는 개정안에 따르면, 상해등급 12급에서 14급에 해당하는 경상환자가 4주를 초과하여 치료를 받을 때는 진단서 제출이 의무화되며, 8주를 초과하는 장기 치료 시에는 객관적인 심의를 통과해야만 치료비가 지급됩니다. 또한, 과거 관행적으로 지급되던 경상환자의 향후치료비 지급이 원칙적으로 차단되므로 실제 발생한 치료비 중심의 실비 청구 비중이 더욱 증가할 전망입니다."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "내 과실이 있는 교통사고에서 실손의료보험을 통해 본인부담금을 환급받는 방법은 무엇인가요?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "교통사고 처리 후 본인의 과실 비율에 따라 발생한 치료비는 본인이 가입한 자동차보험의 자기신체사고 또는 자동차상해 특약으로 처리되거나 자부담하게 됩니다. 이때 자동차보험의 지급결의서와 병원 영수증을 발급받아 실비보험사에 청구하면, 가입한 실손 세대별 약관에 따라 정당하게 본인부담 비용을 보상받으실 수 있습니다."
+              }
+            }
+          ]
+        }
+    </script>
+    
+    <style>
+        html, body, div, span, h1, h2, h3, h4, p, a, ul, li, form, label, input, select, button, table, thead, tbody, tr, th, td, section, header, footer, textarea {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body { 
+            font-family: 'Noto Sans KR', sans-serif; 
+            background-color: #f4f7f6; 
+            color: #2d3748; 
+            line-height: 1.8; 
+            font-size: 16px; 
+        }
+
+        .container { 
+            max-width: 1100px; 
+            margin: 0 auto; 
+            padding: 0 20px; 
+        }
+        
+        header { 
+            background-color: #1e3d59; 
+            padding: 20px 0; 
+            text-align: center; 
+            border-bottom: 2px solid #ff6e40; 
+        }
+        
+        header h1 { 
+            margin: 0; 
+            font-size: 2em; 
+            color: #ffffff; 
+            font-weight: 700; 
+        }
+        
+        header h1 a { 
+            text-decoration: none; 
+            color: inherit; 
+        }
+
+        .hero { 
+            background-color: #17252a; 
+            color: #ffffff; 
+            text-align: center; 
+            padding: 60px 20px; 
+        }
+        
+        .hero h2 { 
+            font-size: 2.5em; 
+            margin-bottom: 15px; 
+            font-weight: 700; 
+            color: #ff6e40;
+        }
+        
+        .hero p { 
+            font-size: 1.2em; 
+            margin-bottom: 30px; 
+            font-weight: 300; 
+            color: #def2f1;
+        }
+
+        .main-content {
+            margin-top: 30px;
+        }
+
+        .interactive-calculator {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            margin-bottom: 40px;
+            border-top: 6px solid #319795;
+        }
+
+        .interactive-calculator h2 {
+            color: #1e3d59;
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 1.8em;
+        }
+
+        .calc-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .calc-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .calc-group label {
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: #4a5568;
+        }
+
+        .calc-group input, .calc-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cbd5e0;
+            border-radius: 6px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        .calc-group input:focus, .calc-group select:focus {
+            border-color: #319795;
+            outline: none;
+        }
+
+        .slider-container {
+            grid-column: span 2;
+        }
+
+        .slider-val {
+            font-weight: bold;
+            color: #319795;
+            margin-left: 10px;
+        }
+
+        .calc-btn {
+            background-color: #319795;
+            color: #ffffff;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        .calc-btn:hover {
+            background-color: #2b7a78;
+        }
+
+        .calc-result-box {
+            margin-top: 25px;
+            padding: 20px;
+            background-color: #f0fdf4;
+            border-left: 5px solid #38a169;
+            border-radius: 6px;
+            display: none;
+        }
+
+        .calc-result-box h3 {
+            color: #276749;
+            margin-bottom: 10px;
+        }
+
+        .calc-result-content {
+            color: #2f855a;
+            font-size: 1.1em;
+        }
+
+        .content-card {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 40px;
+        }
+
+        .content-card h2 {
+            font-size: 1.8em;
+            color: #1e3d59;
+            border-bottom: 2px solid #ff6e40;
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+        }
+
+        .content-card h3 {
+            font-size: 1.4em;
+            color: #319795;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            padding-left: 10px;
+            border-left: 4px solid #319795;
+        }
+
+        .content-card h4 {
+            font-size: 1.1em;
+            color: #2d3748;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        p {
+            margin-bottom: 20px;
+            color: #4a5568;
+            text-align: justify;
+        }
+
+        ul {
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+            color: #4a5568;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            background-color: #ffffff;
+        }
+
+        .comparison-table th, .comparison-table td {
+            border: 1px solid #e2e8f0;
+            padding: 12px 15px;
+            text-align: center;
+        }
+
+        .comparison-table th {
+            background-color: #1e3d59;
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background-color: #f7fafc;
+        }
+
+        .highlight-box {
+            background-color: #fffaf0;
+            border-left: 4px solid #dd6b20;
+            padding: 20px;
+            border-radius: 6px;
+            margin-bottom: 25px;
+        }
+
+        .faq-section {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin-bottom: 40px;
+        }
+
+        .faq-section h2 {
+            font-size: 1.8em;
+            color: #1e3d59;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #ff6e40;
+            padding-bottom: 10px;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #e2e8f0;
+            padding: 20px 0;
+        }
+
+        .faq-question {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #2d3748;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-answer {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #f7fafc;
+            border-radius: 6px;
+            display: none;
+            color: #4a5568;
+        }
+
+        .external-links-box {
+            background-color: #edf2f7;
+            padding: 25px;
+            border-radius: 8px;
+            margin-top: 40px;
+        }
+
+        .external-links-box h4 {
+            color: #2d3748;
+            margin-bottom: 15px;
+        }
+
+        .external-links-box ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .external-links-box li {
+            margin-bottom: 10px;
+        }
+
+        .external-links-box a {
+            color: #3182ce;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .external-links-box a:hover {
+            text-decoration: underline;
+        }
+
+        .keyword-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        .keyword-tag {
+            background-color: #e2e8f0;
+            color: #4a5568;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+        }
+
+        footer {
+            background-color: #17252a;
+            color: #ffffff;
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 0.9em;
+            border-top: 4px solid #ff6e40;
+        }
+
+        @media (max-width: 768px) {
+            .calc-grid {
+                grid-template-columns: 1fr;
+            }
+            .slider-container {
+                grid-column: span 1;
+            }
+            .content-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1><a href="/">교통사고 실비보험 완벽 가이드</a></h1>
+        </div>
+    </header>
+
+    <main class="container main-content">
+        <section class="hero">
+            <h2>교통사고 처리 후 놓치기 쉬운 실비보험 청구</h2>
+            <p>내가 가입한 실손의료보험의 세대별 특성을 분석하여 합리적으로 병원비를 보상받는 핵심 노하우를 공개합니다.</p>
+        </section>
+
+        <section class="interactive-calculator">
+            <h2>실시간 교통사고 실비 환급액 계산기</h2>
+            <p>본인의 나이대, 과실 비율, 실비 가입 시기 및 발생한 병원비를 입력하시면 대략적인 예상 보상 금액을 즉시 시뮬레이션해 보실 수 있습니다.</p>
+            
+            <form id="calcForm" onsubmit="calculateSilbi(event)">
+                <div class="calc-grid">
+                    <div class="calc-group">
+                        <label for="calcAge">연령대 선택</label>
+                        <select id="calcAge" required>
+                            <option value="20">20대 사회초년생</option>
+                            <option value="30">30대 청장년층</option>
+                            <option value="40">40대 중장년층</option>
+                            <option value="50">50대 장년층</option>
+                            <option value="60">60대 이상 시니어</option>
+                        </select>
+                    </div>
+                    <div class="calc-group">
+                        <label for="calcGen">가입한 실비보험 세대 선택</label>
+                        <select id="calcGen" required>
+                            <option value="gen1_injury">1세대 (2009년 8월 이전 - 일반상해의료비 특약)</option>
+                            <option value="gen1_other">1세대 (2009년 8월 이전 - 상해입원/통원)</option>
+                            <option value="gen2">2세대 (2009년 9월 ~ 2015년 12월)</option>
+                            <option value="gen3_4">3세대 및 4세대 (2016년 이후)</option>
+                        </select>
+                    </div>
+                    <div class="calc-group slider-container">
+                        <label for="calcFault">교통사고 본인 과실 비율 <span id="faultVal" class="slider-val">30%</span></label>
+                        <input type="range" id="calcFault" min="0" max="100" value="30" oninput="updateFaultVal(this.value)">
+                    </div>
+                    <div class="calc-group">
+                        <label for="totalCost">총 발생 병원 치료비 (원)</label>
+                        <input type="number" id="totalCost" placeholder="예: 1500000" required min="1000">
+                    </div>
+                    <div class="calc-group">
+                        <label for="autoPaid">자동차보험 처리금액 (원)</label>
+                        <input type="number" id="autoPaid" placeholder="예: 1200000" required min="0">
+                    </div>
+                </div>
+                <button type="submit" class="calc-btn">나의 실비 환급액 계산하기</button>
+            </form>
+
+            <div id="calcResult" class="calc-result-box">
+                <h3>예상 환급 계산 결과</h3>
+                <div id="calcResultContent" class="calc-result-content"></div>
+            </div>
+        </section>
+
+        <section class="content-card">
+            <h2>교통사고 실비보험의 기본 원리와 중복 보상 가능 여부</h2>
+            <p>
+                도로 위에서 원치 않는 교통사고를 겪게 되었을 때 대다수의 운전자와 동승자는 상대방의 자동차보험이나 본인이 가입한 자동차보험을 통해 병원 치료비를 해결합니다. 하지만 사고 처리 과정에서 본인이 개인적으로 가입해 둔 실손의료보험이 있다면 추가로 보장받을 수 있는 영역이 존재한다는 사실을 아는 분들은 많지 않습니다.
+            </p>
+            <p>
+                실손의료보험은 기본적으로 피보험자가 실제로 지출한 의료비만을 비례 보상하는 손해배상의 원칙을 따릅니다. 따라서 자동차보험사에서 지출된 병원비를 개인이 다시 전액 중복 청구하여 이중으로 수익을 얻는 행위는 제한됩니다. 그러나 개인이 실제로 부담한 금액이 있거나 가입한 실손의료보험의 종류와 세대별 약관 규정에 따라서는 상당히 큰 액수의 보험금을 추가로 청구하여 돌려받을 수 있습니다.
+            </p>
+            <p>
+                특히 과거에 가입한 실손상품일수록 피보험자에게 유리한 독창적인 특별약관이 포함되어 있는 경우가 있어 본인의 보장 종류와 브랜드 특성을 미리 대조해 보고 꼼꼼하게 따지는 지혜가 필요합니다.
+            </p>
+
+            <h3>실손의료보험 세대별 교통사고 치료비 보상 범위 분석</h3>
+            <p>
+                우리가 흔히 의료실비라고 부르는 상품은 가입 시기에 따라 1세대부터 4세대까지 다양하게 세분화됩니다. 각 세대별로 교통사고와 관련된 구체적인 약관 구조를 확인하면 다음과 같은 뚜렷한 장단점과 차이점이 존재합니다.
+            </p>
+
+            <h4>1세대 실손의료보험 (2009년 8월 이전 가입자)</h4>
+            <p>
+                이 시기에 판매된 실비보험 중 일반상해의료비 특약에 가입되어 있는 분들은 교통사고 치료 시 가장 큰 혜택을 볼 수 있는 성지와도 같은 부류입니다. 이 특약의 약관에 따르면 피보험자가 국민건강보험을 적용받지 않는 사고(자동차사고, 산재사고 등)로 치료를 받았을 때 본인이 실제로 부담한 병원비가 없더라도 전체 치료비 총액의 50%에 해당하는 예상 금액을 보험사로부터 직접 중복 지급받을 수 있습니다. 즉 상대방 보험사가 병원비를 전부 지불했어도 병원비 영수증 상 총액의 절반을 본인의 실손 계좌로 이체받게 되므로 이를 통해 상당한 위로금 목적의 목돈 마련이 가능합니다.
+            </p>
+
+            <h4>2세대 실손의료보험 (2009년 9월 ~ 2015년 12월 가입자)</h4>
+            <p>
+                표준화가 시작된 2세대 상품부터는 전액 중복 보상이 전면 폐지되었습니다. 대신에 본인의 과실이 존재하여 발생한 본인부담금 혹은 상대방 보험사가 면책하여 개인이 직접 수납한 병원비가 있는 경우 해당 실질 지출 비용의 40%를 실손의료비에서 보상받을 수 있도록 규정이 변경되었습니다. 1세대에 비해 단점이 명확해졌지만 여전히 본인 과실이 일부 잡히는 사고에서는 쏠쏠한 자금 보전의 기회가 됩니다.
+            </p>
+
+            <h4>3세대 및 4세대 실손의료보험 (2016년 이후 가입자)</h4>
+            <p>
+                최근 세대의 실손의료보험 역시 기본적인 룰은 2세대와 유사합니다. 단 자기부담금 규정이 강화되어 본인이 실제 납부한 급여 및 비급여 의료비 중 건강보험 미적용 항목에 대하여 약관에서 정한 비례 공제금액을 제하고 대략 70%에서 80%에 달하는 비용을 한도 내에서 돌려받게 됩니다.
+            </p>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>보험 세대</th>
+                        <th>가입 시기</th>
+                        <th>교통사고 주요 보상 기준</th>
+                        <th>최대 보상 비율</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1세대 (상해의료비)</td>
+                        <td>2009년 8월 이전</td>
+                        <td>자동차보험 처리 총 치료비 기준 비례 중복 지급</td>
+                        <td>치료비 총액의 50%</td>
+                    </tr>
+                    <tr>
+                        <td>1세대 (통원/입원)</td>
+                        <td>2009년 8월 이전</td>
+                        <td>본인 과실로 발생한 개인 부담 비용 기준 보상</td>
+                        <td>본인부담금의 40%</td>
+                    </tr>
+                    <tr>
+                        <td>2세대 실손</td>
+                        <td>2009년 9월 ~ 2015년 12월</td>
+                        <td>본인 과실 발생 시 자동차보험 미적용 병원비 보상</td>
+                        <td>본인부담금의 40%</td>
+                    </tr>
+                    <tr>
+                        <td>3세대 및 4세대</td>
+                        <td>2016년 이후 현재</td>
+                        <td>자기부담 공제 후 실질 지출 병원비 비례 환급</td>
+                        <td>본인부담금의 70% ~ 80%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="content-card">
+            <h2>2026년 대대적인 교통사고 표준약관 개정과 치료 기준 변화</h2>
+            <p>
+                2026년 들어 자동차보험 및 실손보험 업계에는 매우 중대한 변화의 바람이 불고 있습니다. 과거에는 가벼운 타박상이나 염좌 등 상해등급 12급에서 14급에 해당하는 경상환자라 할지라도 통상적으로 향후치료비라는 명목의 합의금을 조기에 수십만 원에서 수백만 원까지 얹어 받아 합의를 종결하곤 했습니다.
+            </p>
+            <div class="highlight-box">
+                급격하게 변동된 2026년 약관에 의하면 상해등급 12급에서 14급의 경상환자가 지급받을 수 있는 향후치료비 항목이 원칙적으로 차단되었습니다. 이에 따라 단순 통증 호소만으로 장기 통원하며 합의금을 키우는 관행이 완전히 사라지게 되었습니다.
+            </div>
+            <p>
+                여기에 더해 2026년 4월부터 본격 도입되는 8주 룰 규정이 운전자들의 발목을 잡고 있습니다. 사고일 기준 4주가 경과하여 추가 치료가 필요한 경우 반드시 의료기관의 객관적인 소견이 담긴 진단서를 주기적으로 제출해야 하며 치료 기간이 8주를 초과하게 될 때에는 단순 진단서 제출만으로 해결되는 것이 아니라 금융당국이 신설한 까다로운 특별 심의를 거쳐야만 치료비 보장을 연장받을 수 있습니다.
+            </p>
+            <p>
+                결국 2026년에는 보험사가 제시하는 합의금 금액 자체가 급감하였기 때문에 피해자 입장에서는 합의를 서두르기보다 초기에 적절한 정밀 검사를 진행하고 실제 발생한 본인 과실분 병원비를 본인이 보유한 실비보험으로 빈틈없이 환급 청구하는 전략이 가장 중요해졌습니다.
+            </p>
+
+            <h3>2023년 경상환자 과실책임제와 실비 청구의 인과관계</h3>
+            <p>
+                과거에는 무과실 사고가 아니더라도 과실이 있는 가해 운전자나 피해 운전자 모두 상대방 보험사로부터 치료비 전액을 지불보증받아 자비 부담 없이 치료를 끝낼 수 있었습니다. 그러나 2023년부터 정착되어 2026년 현재 철저하게 시행 중인 경상환자 과실책임제 하에서는 본인의 과실 비율만큼에 해당하는 병원비를 본인의 차보험 또는 본인 지갑에서 직접 지출해야 하는 구조로 재편되었습니다.
+            </p>
+            <p>
+                예를 들어 차대차 사고로 염좌 진단을 받은 30대 남성의 과실이 30%로 산정되었고 총 치료 비용이 100만 원이 발생했다면, 30만 원에 해당하는 금액은 상대방 보험사에서 보장하지 않으므로 본인 자동차보험의 자기신체사고 또는 자동차상해 담보에서 처리하거나 혹은 순수 본인 돈으로 지급해야 합니다. 바로 이 본인 부담 영역인 30만 원에 대해 본인이 가입해 둔 실손의료보험에 정식으로 신규 신청하여 등급별 한도 안에서 보상을 신청하는 하는법이 현대 교통사고 처리의 핵심 일부분입니다.
+            </p>
+        </section>
+
+        <section class="content-card">
+            <h2>전국 연령대별 교통사고 실비보험 가입 및 청구 동향</h2>
+            <p>
+                연령대별로 운전 패턴과 신체적 취약점이 다르기 때문에 교통사고 발생률과 그에 따른 개인 실비보험 청구 성향도 다양한 양상을 띱니다.
+            </p>
+
+            <h4>20대 초보 운전자 및 사회초년생</h4>
+            <p>
+                20대 교통사고 실비보험 가입 현황을 보면 대다수가 높은 자동차 보험료 요금제 장벽으로 인해 가입 비용을 절감하고자 다이렉트 싼곳이나 온라인 최저가 좌표를 통해 가입하는 경향이 강합니다. 운전 숙련도가 낮아 비교적 가벼운 접촉사고 발생률이 매우 높지만 젊은 신체 특성상 입원보다는 통원 치료 비율이 높습니다. 본인 과실이 많이 잡히는 초보 단계인 만큼 본인 부담으로 환원되는 과실 치료비를 3세대 혹은 4세대 개인 실비로 똑똑하게 돌려받는 계산법을 알고 있어야 낭비를 막을 수 있습니다.
+            </p>
+
+            <h4>30대 합리적 소비 계층</h4>
+            <p>
+                30대 운전자들은 모바일 앱과 어플에 가장 친숙하여 토스나 네이버, 구글 검색창에서 브랜드 인지도 순위를 즉각 비교하고 최저가 성지를 찾아 가입 신청을 실행하는 주류 세대입니다. 디시, 보배드림, 펨코 등의 대형 인터넷 커뮤니티에서 내돈내산으로 직접 수령한 후기를 정밀하게 교차 분석하며 제미나이 또는 챗지피티 같은 차세대 AI 컨설팅 플랫폼을 활용하여 약관을 해석하는 등 가장 스마트한 청구 요령을 보여주는 구간입니다.
+            </p>
+
+            <h4>40대 가족 단위 탑승자</h4>
+            <p>
+                가정의 중심인 40대 운전자들은 본인 단독 사고보다는 부부 한정이나 가족 한정 특약을 맺고 아이들과 함께 동승하던 중에 발생하는 대형 사고의 비중이 늘어납니다. 이로 인해 청구하는 진단금이나 예상 합의금의 절대적인 가격 규모 자체가 커지는 특징이 있습니다. 자녀들의 경우 상해 보험이나 어린이 실비가 중복 가입된 경우가 빈번하므로 가족 전체의 실손 보장 종류를 일괄적으로 상담받고 통합 관리해 주는 전문 업체의 컨설팅을 적극 추천합니다.
+            </p>
+
+            <h4>50대 및 60대 이상 시니어 계층</h4>
+            <p>
+                50대와 60대 이상 시니어 세대로 접어들게 되면 사고 발생 시 신체 충격에 따른 골절, 퇴행성 척추 질환의 급격한 악화 등으로 장기 입원 치료 비용이 동반상승하게 됩니다. 이 연령대에서는 단순히 가벼운 염좌라 할지라도 과거 질환인 기왕증과의 인과관계를 철저하게 증명해야 하므로 공식 고객센터의 밀착 안내를 받거나 전문 손해사정사의 대면 컨설팅이 필수적으로 수반되어야 정당한 혜택을 놓치지 않게 됩니다.
+            </p>
+        </section>
+
+        <section class="content-card">
+            <h2>교통사고 실비보험 청구 서류 및 접수 방법 가이드</h2>
+            <p>
+                병원 치료를 성실하게 마친 후 실제로 보험금을 지급받기 위해서는 구비 서류를 한 번에 꼼꼼히 챙겨서 신청해야 보류 없이 신속하게 처리가 완료됩니다. 불필요한 반려 조치를 피해가기 위해 아래의 제출 품목을 숙지하시기 바랍니다.
+            </p>
+            <ul>
+                <li>치료를 받은 해당 한방병원 또는 일반 병의원에서 발행하는 비급여 항목이 구분 기재된 상세 진료비 영수증</li>
+                <li>환자 본인의 내원 일자별 상세 처방 내역과 치료 재료비가 적시된 진료비 세부내역서</li>
+                <li>본인 및 상대방 자동차보험회사 고객센터를 통해 발급받는 자동차사고 보험금 지급결의서 또는 처리내역서 (해당 서류에 과실 비율과 총 치료 비용이 정확하게 기재되어 있어야 비례 산출이 가능합니다)</li>
+                <li>기타 상해 수준을 입증할 수 있는 정식 진단서 및 초진 기록지 (4주 및 8주 초과 장기 환자는 필수 첨부 대상입니다)</li>
+            </ul>
+            <p>
+                서류 준비가 완료되었다면 각 손해보험사의 모바일 앱을 다운로드하여 비대면 온라인으로 직접 영수증 사진을 촬영해 올리는 다이렉트 접수 방식을 권장합니다. 최근에는 토스나 카카오톡 제휴 서비스를 통해 단 1분 만에 여러 회사의 실손 청구를 일괄 신청하는 방법도 대중화되어 많은 사랑을 받고 있습니다.
+            </p>
+
+            <h3>보험 사기 유의 사항 및 현명한 대처 방안</h3>
+            <p>
+                교통사고 실비보험의 장점만을 취하고자 일부 불법 한방병원이나 무점포 브로커 업체가 주도하는 과잉 도수치료, 허위 입원 권유 등의 달콤한 제안에 흔들려서는 안 됩니다. 2026년 하반기 예정되어 있는 5세대 실손보험 제도는 비급여 주입 치료나 불량 과잉 도수치료 보장을 원천 차단하고 환자 본인 부담을 50%까지 상향하는 고강도 제재안을 들고 나올 전망입니다. 투명하고 정직하게 치료받은 정상적인 영수증만을 토대로 청구해야 불필요한 조사 대상에 올라 불이익을 받는 사태를 사전에 방지할 수 있습니다.
+            </p>
+        </section>
+
+        <section class="faq-section">
+            <h2>자주 묻는 질문 (FAQ)</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    질문: 교통사고 상대방 과실 100% 무과실 사고인데, 제 개인 실손보험에서 받을 돈이 있나요?
+                    <span>▼</span>
+                </div>
+                <div class="faq-answer">
+                    답변: 가입 시기가 2009년 8월 이전인 1세대 실손보험 가입자 중 일반상해의료비 특약 보유자라면 무과실 사고라도 상대방 보험사가 처리해 준 병원 치료비 총액의 50%를 합법적으로 중복 청구할 수 있습니다. 단 2세대 이후 가입자라면 본인 부담 금액이 전혀 발생하지 않은 무과실 사고의 경우에는 실손에서 보상받을 수 있는 영역이 존재하지 않습니다.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    질문: 2026년부터 적용되는 8주 룰이 제 입원 치료에 직접적인 불이익을 주나요?
+                    <span>▼</span>
+                </div>
+                <div class="faq-answer">
+                    답변: 통증이 잔존하여 실제로 정당하게 치료받아야 하는 무과실 피해자라면 8주 룰을 두려워할 이유가 없습니다. 단지 예전처럼 아무 서류 없이 시간만 끌며 드러눕는 가짜 장기 환자를 걸러내기 위해 정밀 검사 의무화 및 전문 심의를 거치도록 제도화한 것이므로, 정당한 주치의 진단서와 정밀 영상 장비 자료를 구비한다면 온전하게 필요한 만큼 계속적인 자동차보험 보장과 실손 보완 청구를 이어갈 수 있습니다.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    질문: 가입 혜택으로 사은품이나 현금지원을 많이 해주는 실비보험 추천 좌표가 있나요?
+                    <span>▼</span>
+                </div>
+                <div class="faq-answer">
+                    답변: 현행 법령상 실손의료보험이나 자동차보험은 정부의 강력한 금융소비자 보호법에 저촉되므로 법적 한도를 초과하는 과도한 현금지원이나 상품권 살포 행위는 엄격히 금지됩니다. 일부 카페나 블로그에서 사은품 지급을 미끼로 신규 가입 유인책을 쓰는 비공식 좌표는 불법 우려가 있으므로 피하시고 신뢰받는 공식 다이렉트 대면/비대면 본사 인증 사이트를 통해 투명한 혜택 범위 안에서 절약 할인을 적용받는 것이 안전합니다.
+                </div>
+            </div>
+        </section>
+
+        <section class="content-card">
+            <h2>신뢰할 수 있는 공식 정보원 및 추가 자료 참고 링크</h2>
+            <p>
+                본 페이지에서 언급한 교통사고 실손 보상 절차와 각종 제도 변화의 객관적인 신빙성을 보증하기 위하여 공신력 높은 주요 공공기관 및 참고 자료를 수록하였습니다. 개개인의 정확한 보장 상태 확인과 유익한 상담을 위해 아래 링크를 유기적으로 참조해 주시기 바랍니다.
+            </p>
+            
+            <div class="external-links-box">
+                <h4>신뢰할 수 있는 공식 외부 링크 안내</h4>
+                <ul>
+                    <li>
+                        <a href="https://silbiitopbohumc.directreliable.com" target="_blank" rel="noopener">Reliabledone 종합 금융 보험 가이드 포털 사이트</a> - 교통사고 처리를 위한 다양한 비교 분석 정보 제공
+                    </li>
+                    <li>
+                        <a href="https://namu.wiki/w/%EC%8B%A4%EC%86%90%EC%9D%98%EB%A3%8C%EB%B3%B4%ED%97%98" target="_blank" rel="noopener">나무위키 실손의료보험 상세 역사 및 약관 정보</a> - 1세대부터 4세대까지 세대별 개념 분석
+                    </li>
+                    <li>
+                        <a href="https://www.fss.or.kr" target="_blank" rel="noopener">금융감독원 공식 웹사이트</a> - 자동차보험 표준약관 개정 동향 및 보도자료 공시
+                    </li>
+                </ul>
+            </div>
+
+            <div class="keyword-cloud">
+                <span class="keyword-tag">교통사고실비보험</span>
+                <span class="keyword-tag">2026년개정안</span>
+                <span class="keyword-tag">경상환자과실책임</span>
+                <span class="keyword-tag">8주룰기준</span>
+                <span class="keyword-tag">실손의료비비례보상</span>
+                <span class="keyword-tag">1세대상해의료비</span>
+                <span class="keyword-tag">다이렉트가입요령</span>
+                <span class="keyword-tag">보험금지급결의서</span>
+            </div>
+        </section>
     </main>
-  </body>
-</html>
+
+  
+
+    <script>
+        function updateFaultVal(val) {
+            document.getElementById('faultVal').innerText = val + '%';
+        }
+
+        function calculateSilbi(event) {
+            event.preventDefault();
+            
+            const age = document.getElementById('calcAge').value;
+            const gen = document.getElementById('calcGen').value;
+            const fault = parseFloat(document.getElementById('calcFault').value);
+            const totalCost = parseFloat(document.getElementById('totalCost').value);
+            const autoPaid = parseFloat(document.getElementById('autoPaid').value);
+
+            if (isNaN(totalCost) || isNaN(autoPaid) || totalCost < 0 || autoPaid < 0) {
+                alert('올바른 병원 치료비와 자동차보험 지불 금액을 입력해 주세요.');
+                return;
+            }
+
+            let resultTitle = '';
+            let explanation = '';
+            let expectedRefund = 0;
+
+            const personalResponsibility = totalCost * (fault / 100);
+
+            if (gen === 'gen1_injury') {
+                expectedRefund = totalCost * 0.5;
+                resultTitle = '1세대 일반상해의료비 기준 환급 예측';
+                explanation = '1세대 일반상해의료비는 실제 본인이 낸 돈이 적거나 없더라도, 전체 자동차보험 치료비 총액의 50%에 상응하는 비례 지급이 가능합니다. 이에 따라 본인 과실 크기에 연동되지 않고 치료비 총액 ' + totalCost.toLocaleString() + '원의 절반인 ' + expectedRefund.toLocaleString() + '원 수준의 지급을 청구해 보실 수 있습니다. 이는 실손 약관 역사상 전례 없는 가장 뛰어난 보장 중 하나입니다.';
+            } else if (gen === 'gen1_other') {
+                expectedRefund = personalResponsibility * 0.4;
+                resultTitle = '1세대 상해입원/통원의료비 기준 환급 예측';
+                explanation = '1세대 상해입원/통원의료비 가입자의 경우, 전체 보상이 아닌 본인의 과실 분담 비율인 ' + fault + '%에 의해 귀하가 지출하게 된 실부담금액 ' + personalResponsibility.toLocaleString() + '원을 기초로 삼습니다. 해당 실부담금의 40% 수준인 약 ' + expectedRefund.toLocaleString() + '원이 보상 예상 금액으로 추산됩니다.';
+            } else if (gen === 'gen2') {
+                expectedRefund = personalResponsibility * 0.4;
+                resultTitle = '2세대 실손의료보험 기준 환급 예측';
+                explanation = '2세대 표준화 실손 계약에 의하면 상대방 자동차보험에서 공제하고 남은 본인의 과실부담금액인 ' + personalResponsibility.toLocaleString() + '원에 대한 40%를 보전받게 됩니다. 계산된 예상 보상액은 약 ' + expectedRefund.toLocaleString() + '원입니다. 이 시기부터 본격적인 비례 비중이 엄격해졌습니다.';
+            } else if (gen === 'gen3_4') {
+                expectedRefund = personalResponsibility * 0.75;
+                resultTitle = '3세대 및 4세대 실손의료보험 기준 환급 예측';
+                explanation = '3세대와 4세대 실손은 자기부담 한도 공제 비율이 세분화되어 있어, 본인부담금 ' + personalResponsibility.toLocaleString() + '원의 대략 70%에서 80% 가량(중간값 75% 적용 시 약 ' + expectedRefund.toLocaleString() + '원)을 청구하여 비례 지원받으실 수 있습니다. 세대 변동에 따라 자기부담금이 늘었지만, 본인 실부담 영역의 직접 청구 보장률은 합리적인 한도 내에서 탄력적으로 작동합니다.';
+            }
+
+            const resultBox = document.getElementById('calcResult');
+            const resultContent = document.getElementById('calcResultContent');
+            
+            resultContent.innerHTML = '<strong>[' + resultTitle + ']</strong><br><br>' + 
+                                      '본인 과실 금액: ' + personalResponsibility.toLocaleString() + '원<br>' +
+                                      '최종 예상 실비 환급액: <strong style="color: #e53e3e; font-size: 1.2em;">' + expectedRefund.toLocaleString() + '원</strong><br><br>' +
+                                      explanation + '<br><br>' +
+                                      '개인 치료 내역과 보험 계약 브랜드의 세부 구성, 입원 여부에 따라 수령금 차이가 날 수 있으므로 반드시 정식 전문 상담과 약관 분석을 요청해 확인하시기 바랍니다.';
+            
+            resultBox.style.display = 'block';
+            resultBox.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function toggleFaq(element) {
+            const answer = element.nextElementSibling;
+            const arrow = element.querySelector('span');
+            if (answer.style.display === 'block') {
+                answer.style.display = 'none';
+                arrow.innerText = '▼';
+            } else {
+                answer.style.display = 'block';
+                arrow.innerText = '▲';
+            }
+        }
+    </script>
+  
